@@ -19,7 +19,11 @@ RCT_EXPORT_MODULE()
 - (NSArray<NSDictionary*>*)langsToDicts: (NSArray<MLKTextRecognizedLanguage*>*)langs {
     NSMutableArray *array = [NSMutableArray array];
     for (MLKTextRecognizedLanguage* lang in langs) {
-        [array addObject:@{ @"languageCode": lang.languageCode }];
+        if (lang.languageCode != nil) {
+            [array addObject:@{ @"languageCode": lang.languageCode}];
+        } else {
+            [array addObject:@{ @"languageCode": [NSNull null]}];
+        }
     }
     return array;
 }
